@@ -4,7 +4,7 @@ For additional information see the Model Card paper: https://arxiv.org/pdf/1810.
 
 ## Model Details
 Prediction task is to determine whether a person makes over 50K a year.
-Adaboost ensemble model is used for doing this task. Base estimator are random forests.
+Gradient Boosting model is used for doing this task. Base estimator are random forests.
 Default values are used.
 ## Intended Use
 This model can be used to predict the salary level of an individual based off a handful of attributes. The usage is meant for students, academics or research purpose.
@@ -22,6 +22,9 @@ To use the data for training a One Hot Encoder was used on the categorical featu
 Transformation was applied on the categorical features and the target label respectively using the One Hot Encoder and label binarizer fitted on the train set.
 ## Metrics
 _Please include the metrics used and your model's performance on those metrics._
+- precision:0.770
+- recall:0.625
+- fbeta:0.690
 
 ## Ethical Considerations
 The dataset should not be considered as a fair representation of the salary distribution and should not be used to assume salary level of certain population categories.
