@@ -66,5 +66,6 @@ def process_data(
         except AttributeError:
             pass
 
+
     X = np.concatenate([X_continuous, X_categorical], axis=1)
     return X, y, encoder, lb

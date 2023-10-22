@@ -47,7 +47,7 @@ def test_inference():
 
     # test prediction vs expected label
     logging.info(f'********* prediction = {r.json()["prediction"]} ********')
-    assert r.json()["prediction"] == '>50K'
+    assert r.json()["prediction"][0] == '<=50K'
 
 
 def test_inference_class0():

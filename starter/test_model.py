@@ -4,11 +4,11 @@ import logging
 
 @pytest.fixture(scope='module')
 def data():
-    return pd.read_csv('data/cleaned_data.csv')
+    return pd.read_csv('./data/cleaned_data.csv')
 
 @pytest.fixture(scope="module")
 def path():
-    return "./data/cleaned_census.csv"
+    return "./data/cleaned_data.csv"
 
 
 def test_model_columns(data):
@@ -27,7 +27,7 @@ def test_data_size(data):
     Checks if there is a reasonable number of instances
     '''
     try:
-        assert len(data[0]) > 1000 and len(data[0]) < 10000000
+        assert len(data) > 1000 and len(data) < 10000000
     except AssertionError as err:
         logging.error("Data size is not suitable")
         raise err

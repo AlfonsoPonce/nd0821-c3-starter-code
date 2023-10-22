@@ -1,5 +1,0 @@
-root - INFO - Reading Data
-root - INFO - Splitting data
-root - INFO - Processing categorical columns
-root - INFO - Training model
-root - INFO - Saving model, encoder and labeler

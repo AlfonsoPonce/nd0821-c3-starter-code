@@ -32,7 +32,7 @@ class InputData(BaseModel):
 
 @app.get("/")
 async def say_hello():
-    return "Welcome to model API"
+    return "Welcome to our model API"
 
 
 @app.post("/inference/")
@@ -69,9 +69,9 @@ async def ingest_data(inference: InputData):
     ]
 
     if os.path.isfile(os.path.join(save_folder, 'trained_model.pkl')):
-        model = joblib.load(open(os.path.join(save_folder, 'trained_model.pkl'), "rb"))
-        encoder = joblib.load(open(os.path.join(save_folder, 'encoder.pkl'), "rb"))
-        lb = joblib.load(open(os.path.join(save_folder, 'lb.pkl'), "rb"))
+        model = joblib.load(os.path.join(save_folder, 'trained_model.pkl'))
+        encoder = joblib.load(os.path.join(save_folder, 'encoder.pkl'))
+        lb = joblib.load(os.path.join(save_folder, 'lb.pkl'))
 
     sample, _, _, _ = process_data(
         sample,

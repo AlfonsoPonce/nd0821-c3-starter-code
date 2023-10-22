@@ -6,12 +6,12 @@ import joblib
 from pathlib import Path
 from sklearn.model_selection import train_test_split
 from ml.data import process_data
-from ml.model import train_model, compute_model_metrics
+from ml.model import train_model, compute_model_metrics, inference, performance_on_sliced_data
 import logging
 
 
 # Initialize logging
-logging.basicConfig(filename='logs.log',
+logging.basicConfig(filename='journal.log',
                     level=logging.INFO,
                     filemode='w',
                     format='%(name)s - %(levelname)s - %(message)s')
@@ -20,6 +20,7 @@ logging.basicConfig(filename='logs.log',
 
 logging.info("Reading Data")
 data = pd.read_csv(str(Path('../data/cleaned_data.csv')))
+data = data.drop('Unnamed: 0', axis=1)
 
 logging.info("Splitting data")
 # Optional enhancement, use K-fold cross validation instead of a train-test split.
@@ -56,4 +57,24 @@ joblib.dump(model, os.path.join(save_folder, 'trained_model.pkl'))
 joblib.dump(encoder, os.path.join(save_folder, 'encoder.pkl'))
 joblib.dump(lb, os.path.join(save_folder, 'lb.pkl'))
 
+
+# evaluate trained model on test set
+preds = inference(model, X_test)
+precision, recall, fbeta = compute_model_metrics(y_test, preds)
+
+logging.info(f"Classification target labels: {list(lb.classes_)}")
+logging.info(
+    f"precision:{precision:.3f}, recall:{recall:.3f}, fbeta:{fbeta:.3f}")
+
+# Compute performance on slices for categorical features
+# save results in a new txt file
+slice_savepath = "./slice_output.txt"
+
+
+# iterate through the categorical features and save results to log and txt file
+for feature in cat_features:
+    performance_df = performance_on_sliced_data(test, feature, y_test, preds)
+    performance_df.to_csv(slice_savepath,  mode='w', index=False)
+    logging.info(f"Performance on slice {feature}")
+    logging.info(performance_df)
 
