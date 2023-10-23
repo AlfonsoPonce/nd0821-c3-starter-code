@@ -23,16 +23,16 @@ def test_inference():
     sample =  {  'age':50,
                 'workclass':"Private",
                 'fnlgt':234721,
-                'education':"Doctorate",
-                'education_num':16,
-                'marital_status':"Separated",
+                'education':"HS-grad",
+                'education_num':9,
+                'marital_status':"Married-civ-spouse",
                 'occupation':"Exec-managerial",
-                'relationship':"Not-in-family",
-                'race':"Black",
-                'sex':"Female",
-                'capital_gain':0,
+                'relationship':"Husband",
+                'race':"White",
+                'sex':"Male",
+                'capital_gain':15024,
                 'capital_loss':0,
-                'hours_per_week':50,
+                'hours_per_week':40,
                 'native_country':"United-States"
             }
 
@@ -47,8 +47,8 @@ def test_inference():
 
     # test prediction vs expected label
     logging.info(f'********* prediction = {r.json()["prediction"]} ********')
-    assert r.json()["prediction"][0] == '>50K'
-
+    assert r.json()["prediction"] == '>50K'
+    
 
 def test_inference_class0():
     """
